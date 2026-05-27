@@ -1,0 +1,159 @@
+{
+    "categories": [
+        {
+            "id": "Gezin",
+            "emoji": "👨‍👩‍👦",
+            "defaultName": "Gezin",
+            "description": "Mama, Papa, Oma, Baby...",
+            "themeColorHex": "0xFFFFD180"
+        },
+        {
+            "id": "Keuken",
+            "emoji": "🍳",
+            "defaultName": "Keuken",
+            "description": "Vork, Lepel, Glas, Mes...",
+            "themeColorHex": "0xFFFFF59D"
+        },
+        {
+            "id": "Vakantie",
+            "emoji": "🏖️",
+            "defaultName": "Vakantie",
+            "description": "Strand, Zee, IJsje, Bal...",
+            "themeColorHex": "0xFF80DEEA"
+        }
+    ],
+    "words": [
+        {
+            "id": "mama",
+            "categoryId": "Gezin",
+            "emoji": "👩",
+            "themeColorHex": "0xFFFFE5EC",
+            "dutch": "Mama",
+            "macedonian": "Мајка",
+            "macedonianLatin": "Majka",
+            "pronunciation": "MAYE-kah",
+            "audioPath": "sound/mama.mp3"
+        },
+        {
+            "id": "papa",
+            "categoryId": "Gezin",
+            "emoji": "👨",
+            "themeColorHex": "0xFFE3F2FD",
+            "dutch": "Papa",
+            "macedonian": "Татко",
+            "macedonianLatin": "Tatko",
+            "pronunciation": "TAT-ko",
+            "audioPath": "sound/papa.mp3"
+        },
+        {
+            "id": "baby",
+            "categoryId": "Gezin",
+            "emoji": "👶",
+            "themeColorHex": "0xFFF3E5F5",
+            "dutch": "Baby",
+            "macedonian": "Бебе",
+            "macedonianLatin": "Bebe",
+            "pronunciation": "BEH-beh",
+            "audioPath": "sound/baby.mp3"
+        },
+        {
+            "id": "oma",
+            "categoryId": "Gezin",
+            "emoji": "👵",
+            "themeColorHex": "0xFFE8F5E9",
+            "dutch": "Oma",
+            "macedonian": "Баба",
+            "macedonianLatin": "Baba",
+            "pronunciation": "BAH-bah",
+            "audioPath": "sound/oma.mp3"
+        },
+        {
+            "id": "fork",
+            "categoryId": "Keuken",
+            "emoji": "🍴",
+            "themeColorHex": "0xFFECEFF1",
+            "dutch": "Vork",
+            "macedonian": "Вилушка",
+            "macedonianLatin": "Vilushka",
+            "pronunciation": "vee-LOOSH-kah",
+            "audioPath": "sound/fork.mp3"
+        },
+        {
+            "id": "spoon",
+            "categoryId": "Keuken",
+            "emoji": "🥄",
+            "themeColorHex": "0xFFFFFDE3",
+            "dutch": "Lepel",
+            "macedonian": "Лажица",
+            "macedonianLatin": "Lazhica",
+            "pronunciation": "LAH-zheet-sah",
+            "audioPath": "sound/spoon.mp3"
+        },
+        {
+            "id": "glass",
+            "categoryId": "Keuken",
+            "emoji": "🥛",
+            "themeColorHex": "0xFFE0F7FA",
+            "dutch": "Glas",
+            "macedonian": "Чаша",
+            "macedonianLatin": "Chasha",
+            "pronunciation": "CHAH-shah",
+            "audioPath": "sound/glass.mp3"
+        },
+        {
+            "id": "knife",
+            "categoryId": "Keuken",
+            "emoji": "🔪",
+            "themeColorHex": "0xFFFFEBEE",
+            "dutch": "Mes",
+            "macedonian": "Нож",
+            "macedonianLatin": "Nozh",
+            "pronunciation": "NOZH",
+            "audioPath": "sound/knife.mp3"
+        },
+        {
+            "id": "beach",
+            "categoryId": "Vakantie",
+            "emoji": "🏖️",
+            "themeColorHex": "0xFFFFF8E1",
+            "dutch": "Strand",
+            "macedonian": "Плажа",
+            "macedonianLatin": "Plazha",
+            "pronunciation": "PLAH-zhah",
+            "audioPath": "sound/beach.mp3"
+        },
+        {
+            "id": "sea",
+            "categoryId": "Vakantie",
+            "emoji": "🌊",
+            "themeColorHex": "0xFFE0F3F8",
+            "dutch": "Zee",
+            "macedonian": "Море",
+            "macedonianLatin": "More",
+            "pronunciation": "MO-reh",
+            "audioPath": "sound/sea.mp3"
+        },
+        {
+            "id": "icecream",
+            "categoryId": "Vakantie",
+            "emoji": "🍦",
+            "themeColorHex": "0xFFFFF3E0",
+            "dutch": "IJsje",
+            "macedonian": "Сладолед",
+            "macedonianLatin": "Sladoled",
+            "pronunciation": "SLAH-do-led",
+            "audioPath": "sound/icecream.mp3"
+        },
+        {
+            "id": "ball",
+            "categoryId": "Vakantie",
+            "emoji": "⚽",
+            "themeColorHex": "0xFFE8EAF6",
+            "dutch": "Bal",
+            "macedonian": "Топка",
+            "macedonianLatin": "Topka",
+            "pronunciation": "TOP-kah",
+            "audioPath": "sound/ball.mp3"
+        }
+    ]
+}
