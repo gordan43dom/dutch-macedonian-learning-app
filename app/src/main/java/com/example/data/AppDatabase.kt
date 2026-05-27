@@ -27,13 +27,25 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+                val builder = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "matching_game_database"
                 )
-                .fallbackToDestructiveMigration()
-                .build()
+
+                // Dynamically check if offline-packaged database exists in assets
+                val assetsList = try {
+                    context.assets.list("database")
+                } catch (e: Exception) {
+                    null
+                }
+                if (assetsList?.contains("vocabulary.db") == true) {
+                    builder.createFromAsset("database/vocabulary.db")
+                }
+
+                val instance = builder
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

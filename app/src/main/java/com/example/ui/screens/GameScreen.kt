@@ -352,19 +352,11 @@ fun GameScreen(
         // Parent Stats Panel Overlay Window
         if (showParentPanel) {
             val allVocabList by viewModel.allVocabularyItemsFromDb.collectAsState()
-            val categoriesForSelection by viewModel.categories.collectAsState()
             ParentProgressStatsView(
                 progressLogs = allProgressLogs,
                 vocabList = allVocabList,
                 onClose = { showParentPanel = false },
-                onClearHistory = { viewModel.clearHistory() },
-                onAddWord = { id, categoryId, dutch, macLatin, macCyr, pronunciation, emoji ->
-                    viewModel.addNewWord(id, categoryId, dutch, macLatin, macCyr, pronunciation, emoji)
-                },
-                onAddCategory = { id, emoji, title, desc ->
-                    viewModel.addNewCategory(id, emoji, title, desc)
-                },
-                categoriesList = categoriesForSelection
+                onClearHistory = { viewModel.clearHistory() }
             )
         }
     }
@@ -671,10 +663,7 @@ fun ParentProgressStatsView(
     progressLogs: List<com.example.data.ProgressEntity>,
     vocabList: List<com.example.data.VocabularyItem>,
     onClose: () -> Unit,
-    onClearHistory: () -> Unit,
-    onAddWord: (String, String, String, String, String, String, String) -> Unit,
-    onAddCategory: (String, String, String, String) -> Unit,
-    categoriesList: List<String>
+    onClearHistory: () -> Unit
 ) {
     // Collect stats from history
     val totalAttempts = progressLogs.size
@@ -699,8 +688,6 @@ fun ParentProgressStatsView(
             }
         }
     }
-
-    var activeTab by remember { mutableStateOf(0) } // 0: Mastery Logs, 1: Add Custom Word, 2: Add Category
 
     Box(
         modifier = Modifier
@@ -746,7 +733,7 @@ fun ParentProgressStatsView(
                                 color = Color(0xFF1E88E5)
                             )
                             Text(
-                                text = "SQLite Database Management System",
+                                text = "SQLite Database View & Progress",
                                 fontSize = 9.sp,
                                 color = Color.Gray
                             )
@@ -810,372 +797,94 @@ fun ParentProgressStatsView(
                     }
                 }
 
-                // Dynamic Tab Row Pills
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    val tabs = listOf("Voortgang 📊", "Nieuw Woord 📝", "Categorie 📂")
-                    tabs.forEachIndexed { index, title ->
-                        Button(
-                            onClick = { activeTab = index },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (activeTab == index) Color(0xFF3F51B5) else Color(0xFFF5F5F5),
-                                contentColor = if (activeTab == index) Color.White else Color.DarkGray
-                            ),
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier.weight(1f),
-                            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 2.dp)
-                        ) {
-                            Text(title, fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                        }
-                    }
-                }
-
+                Spacer(modifier = Modifier.height(12.dp))
                 Divider(color = Color(0xFFEEEEEE), thickness = 1.dp)
                 Spacer(modifier = Modifier.height(8.dp))
 
-                if (activeTab == 0) {
-                    // TAB 0: Mastery Logs List
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "Vocabulary Mastery Tracker",
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.DarkGray,
-                            modifier = Modifier.padding(bottom = 6.dp)
-                        )
+                // TAB 0: Mastery Logs List
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Vocabulary Mastery Tracker",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(bottom = 6.dp)
+                    )
 
-                        LazyColumn(
-                            modifier = Modifier.weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            items(vocabList) { vocab ->
-                                val matchedCount = wordSuccessCount[vocab.dutch] ?: 0
-                                val missedCount = wordFailureCount[vocab.dutch] ?: 0
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        items(vocabList) { vocab ->
+                            val matchedCount = wordSuccessCount[vocab.dutch] ?: 0
+                            val missedCount = wordFailureCount[vocab.dutch] ?: 0
 
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color(0xFFFAFAFA), RoundedCornerShape(12.dp))
+                                    .border(1.dp, Color(0xFFEEEEEE), RoundedCornerShape(12.dp))
+                                    .padding(10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
                                 Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(Color(0xFFFAFAFA), RoundedCornerShape(12.dp))
-                                        .border(1.dp, Color(0xFFEEEEEE), RoundedCornerShape(12.dp))
-                                        .padding(10.dp),
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    modifier = Modifier.weight(1f)
                                 ) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                        modifier = Modifier.weight(1f)
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(Color(vocab.themeColorHex).copy(alpha = 0.3f), CircleShape),
+                                        contentAlignment = Alignment.Center
                                     ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .size(32.dp)
-                                                .background(Color(vocab.themeColorHex).copy(alpha = 0.3f), CircleShape),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Text(vocab.emoji, fontSize = 16.sp)
-                                        }
-                                        Column {
-                                            Text(
-                                                text = "${vocab.dutch} ➔ ${vocab.macedonianCyrillic}",
-                                                fontSize = 13.sp,
-                                                fontWeight = FontWeight.Bold,
-                                                color = Color.Black
-                                            )
-                                            Text(
-                                                text = "${vocab.category} (${vocab.macedonian} / ${vocab.pronunciation})",
-                                                fontSize = 10.sp,
-                                                color = Color.Gray
-                                            )
-                                        }
+                                        Text(vocab.emoji, fontSize = 16.sp)
+                                    }
+                                    Column {
+                                        Text(
+                                            text = "${vocab.dutch} ➔ ${vocab.macedonianCyrillic}",
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.Black
+                                        )
+                                        Text(
+                                            text = "${vocab.category} (${vocab.macedonian} / ${vocab.pronunciation})",
+                                            fontSize = 10.sp,
+                                            color = Color.Gray
+                                        )
+                                    }
+                                }
+
+                                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    Box(
+                                        modifier = Modifier
+                                            .background(Color(0xFFE8F5E9), RoundedCornerShape(6.dp))
+                                            .padding(horizontal = 6.dp, vertical = 3.dp)
+                                    ) {
+                                        Text(
+                                            text = "OK: $matchedCount",
+                                            color = Color(0xFF2E7D32),
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
                                     }
 
-                                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    if (missedCount > 0) {
                                         Box(
                                             modifier = Modifier
-                                                .background(Color(0xFFE8F5E9), RoundedCornerShape(6.dp))
+                                                .background(Color(0xFFFFEBEE), RoundedCornerShape(6.dp))
                                                 .padding(horizontal = 6.dp, vertical = 3.dp)
                                         ) {
                                             Text(
-                                                text = "OK: $matchedCount",
-                                                color = Color(0xFF2E7D32),
+                                                text = "X: $missedCount",
+                                                color = Color(0xFFC62828),
                                                 fontSize = 10.sp,
                                                 fontWeight = FontWeight.Bold
                                             )
                                         }
-
-                                        if (missedCount > 0) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .background(Color(0xFFFFEBEE), RoundedCornerShape(6.dp))
-                                                    .padding(horizontal = 6.dp, vertical = 3.dp)
-                                            ) {
-                                                Text(
-                                                    text = "X: $missedCount",
-                                                    color = Color(0xFFC62828),
-                                                    fontSize = 10.sp,
-                                                    fontWeight = FontWeight.Bold
-                                                )
-                                            }
-                                        }
                                     }
                                 }
-                            }
-                        }
-                    }
-                } else if (activeTab == 1) {
-                    // TAB 1: ADD WORD FORM
-                    var wordId by remember { mutableStateOf("") }
-                    var dutchWord by remember { mutableStateOf("") }
-                    var macLatin by remember { mutableStateOf("") }
-                    var macCyr by remember { mutableStateOf("") }
-                    var pronunciationText by remember { mutableStateOf("") }
-                    var wordEmoji by remember { mutableStateOf("") }
-                    var successMessage by remember { mutableStateOf("") }
-
-                    val actualCategories = categoriesList.filter { it != "Alle" }
-                    var selectedCatId by remember { mutableStateOf(if (actualCategories.isNotEmpty()) actualCategories[0] else "Gezin") }
-                    var showDropdown by remember { mutableStateOf(false) }
-
-                    LazyColumn(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        item {
-                            Text("Database Woord Toevoegen", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
-                        }
-
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                OutlinedTextField(
-                                    value = dutchWord,
-                                    onValueChange = { dutchWord = it },
-                                    label = { Text("Nederlands", fontSize = 11.sp) },
-                                    placeholder = { Text("Hond") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1f)
-                                )
-
-                                OutlinedTextField(
-                                    value = macCyr,
-                                    onValueChange = { macCyr = it },
-                                    label = { Text("Македонски", fontSize = 11.sp) },
-                                    placeholder = { Text("Куче") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1f)
-                                )
-                            }
-                        }
-
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                OutlinedTextField(
-                                    value = macLatin,
-                                    onValueChange = { macLatin = it },
-                                    label = { Text("Macedonian (Latin)", fontSize = 11.sp) },
-                                    placeholder = { Text("Kuche") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1f)
-                                )
-
-                                OutlinedTextField(
-                                    value = pronunciationText,
-                                    onValueChange = { pronunciationText = it },
-                                    label = { Text("Uitspraak", fontSize = 11.sp) },
-                                    placeholder = { Text("KOO-cheh") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1f)
-                                )
-                            }
-                        }
-
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                OutlinedTextField(
-                                    value = wordEmoji,
-                                    onValueChange = { wordEmoji = it },
-                                    label = { Text("Emoji", fontSize = 11.sp) },
-                                    placeholder = { Text("🐶") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1f)
-                                )
-
-                                OutlinedTextField(
-                                    value = wordId,
-                                    onValueChange = { wordId = it },
-                                    label = { Text("Unieke ID", fontSize = 11.sp) },
-                                    placeholder = { Text("dog") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1.5f)
-                                )
-                            }
-                        }
-
-                        item {
-                            Box(modifier = Modifier.fillMaxWidth()) {
-                                OutlinedButton(
-                                    onClick = { showDropdown = true },
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    Text("Categorie: $selectedCatId 📂", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF3F51B5))
-                                }
-                                DropdownMenu(
-                                    expanded = showDropdown,
-                                    onDismissRequest = { showDropdown = false }
-                                ) {
-                                    actualCategories.forEach { cat ->
-                                        DropdownMenuItem(
-                                            text = { Text(cat) },
-                                            onClick = {
-                                                selectedCatId = cat
-                                                showDropdown = false
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-                        }
-
-                        item {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Button(
-                                onClick = {
-                                    if (wordId.isNotBlank() && dutchWord.isNotBlank() && macCyr.isNotBlank()) {
-                                        onAddWord(
-                                            wordId.trim().lowercase(),
-                                            selectedCatId,
-                                            dutchWord.trim(),
-                                            macLatin.trim(),
-                                            macCyr.trim(),
-                                            pronunciationText.trim(),
-                                            wordEmoji.trim()
-                                        )
-                                        successMessage = "'$dutchWord' is opgeslagen in SQLite! 🎉"
-                                        wordId = ""
-                                        dutchWord = ""
-                                        macCyr = ""
-                                        macLatin = ""
-                                        pronunciationText = ""
-                                        wordEmoji = ""
-                                    } else {
-                                        successMessage = "Fout: Vul minstens Id, Nederlands en Македонски in."
-                                    }
-                                },
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Text("Opslaan in SQLite Database + TTS Koppelen", fontWeight = FontWeight.Black, fontSize = 12.sp)
-                            }
-                        }
-
-                        if (successMessage.isNotEmpty()) {
-                            item {
-                                Text(successMessage, color = Color(0xFF2E7D32), fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                            }
-                        }
-                    }
-                } else {
-                    // TAB 2: ADD CATEGORY FORM
-                    var catId by remember { mutableStateOf("") }
-                    var catEmoji by remember { mutableStateOf("") }
-                    var catName by remember { mutableStateOf("") }
-                    var catDesc by remember { mutableStateOf("") }
-                    var successMessage by remember { mutableStateOf("") }
-
-                    LazyColumn(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        item {
-                            Text("Database Categorie Toevoegen", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
-                        }
-
-                        item {
-                            OutlinedTextField(
-                                value = catName,
-                                onValueChange = { catName = it },
-                                label = { Text("Categorie Naam", fontSize = 11.sp) },
-                                placeholder = { Text("Dieren") },
-                                singleLine = true,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                OutlinedTextField(
-                                    value = catEmoji,
-                                    onValueChange = { catEmoji = it },
-                                    label = { Text("Emoji", fontSize = 11.sp) },
-                                    placeholder = { Text("🦁") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1.0f)
-                                )
-
-                                OutlinedTextField(
-                                    value = catId,
-                                    onValueChange = { catId = it },
-                                    label = { Text("Unieke ID", fontSize = 11.sp) },
-                                    placeholder = { Text("Dieren") },
-                                    singleLine = true,
-                                    modifier = Modifier.weight(1.5f)
-                                )
-                            }
-                        }
-
-                        item {
-                            OutlinedTextField(
-                                value = catDesc,
-                                onValueChange = { catDesc = it },
-                                label = { Text("Beschrijving", fontSize = 11.sp) },
-                                placeholder = { Text("Honden, katten en boerderij dieren...") },
-                                singleLine = true,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-
-                        item {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Button(
-                                onClick = {
-                                    if (catId.isNotBlank() && catName.isNotBlank() && catEmoji.isNotBlank()) {
-                                        onAddCategory(catId.trim(), catEmoji.trim(), catName.trim(), catDesc.trim())
-                                        successMessage = "Categorie '$catName' is opgeslagen! 🎉"
-                                        catId = ""
-                                        catEmoji = ""
-                                        catName = ""
-                                        catDesc = ""
-                                    } else {
-                                        successMessage = "Fout: Vul Categorie Naam, Emoji en ID in."
-                                    }
-                                },
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Text("Opslaan in SQLite Database", fontWeight = FontWeight.Black, fontSize = 12.sp)
-                            }
-                        }
-
-                        if (successMessage.isNotEmpty()) {
-                            item {
-                                Text(successMessage, color = Color(0xFF2E7D32), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }
@@ -1190,7 +899,7 @@ fun ParentProgressStatsView(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "🔒 No ads, fully offline database sandbox.",
+                        text = "🔒 No ads, fully offline database viewer.",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Medium,
                         color = Color.Gray
