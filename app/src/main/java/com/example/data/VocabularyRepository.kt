@@ -83,7 +83,8 @@ class VocabularyRepository(private val vocabularyDao: VocabularyDao) {
             val categoriesFromVocabulary = listOf(
                 CategoryEntity("Gezin", "👨‍👩‍👦", "Gezin", "Mama, Papa, Oma, Baby...", 0xFFFFD180),
                 CategoryEntity("Keuken", "🍳", "Keuken", "Vork, Lepel, Glas, Mes...", 0xFFFFF59D),
-                CategoryEntity("Vakantie", "🏖️", "Vakantie", "Strand, Zee, IJsje, Bal...", 0xFF80DEEA)
+                CategoryEntity("Vakantie", "🏖️", "Vakantie", "Strand, Zee, IJsje, Bal...", 0xFF80DEEA),
+                CategoryEntity("Getallen", "🔢", "Getallen", "1, 2, 3 tot 100...", 0xFFE1BEE7)
             )
 
             for (cat in categoriesFromVocabulary) {

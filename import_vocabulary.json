@@ -20,6 +20,13 @@
             "defaultName": "Vakantie",
             "description": "Strand, Zee, IJsje, Bal...",
             "themeColorHex": "0xFF80DEEA"
+        },
+        {
+            "id": "Getallen",
+            "emoji": "🔢",
+            "defaultName": "Getallen",
+            "description": "1, 2, 3 tot 100...",
+            "themeColorHex": "0xFFE1BEE7"
         }
     ],
     "words": [
@@ -154,6 +161,314 @@
             "macedonianLatin": "Topka",
             "pronunciation": "TOP-kah",
             "audioPath": "sound/ball.mp3"
+        },
+        {
+            "id": "num_1",
+            "categoryId": "Getallen",
+            "emoji": "1️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Een",
+            "macedonian": "Еден",
+            "macedonianLatin": "Eden",
+            "pronunciation": "EY-den",
+            "audioPath": "sound/num_1.mp3"
+        },
+        {
+            "id": "num_2",
+            "categoryId": "Getallen",
+            "emoji": "2️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Twee",
+            "macedonian": "Два",
+            "macedonianLatin": "Dva",
+            "pronunciation": "DVAH",
+            "audioPath": "sound/num_2.mp3"
+        },
+        {
+            "id": "num_3",
+            "categoryId": "Getallen",
+            "emoji": "3️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Drie",
+            "macedonian": "Три",
+            "macedonianLatin": "Tri",
+            "pronunciation": "TREE",
+            "audioPath": "sound/num_3.mp3"
+        },
+        {
+            "id": "num_4",
+            "categoryId": "Getallen",
+            "emoji": "4️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Vier",
+            "macedonian": "Четири",
+            "macedonianLatin": "Chetiri",
+            "pronunciation": "CHEH-tee-ree",
+            "audioPath": "sound/num_4.mp3"
+        },
+        {
+            "id": "num_5",
+            "categoryId": "Getallen",
+            "emoji": "5️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Vijf",
+            "macedonian": "Пет",
+            "macedonianLatin": "Pet",
+            "pronunciation": "PET",
+            "audioPath": "sound/num_5.mp3"
+        },
+        {
+            "id": "num_6",
+            "categoryId": "Getallen",
+            "emoji": "6️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Zes",
+            "macedonian": "Шест",
+            "macedonianLatin": "Shest",
+            "pronunciation": "SHEST",
+            "audioPath": "sound/num_6.mp3"
+        },
+        {
+            "id": "num_7",
+            "categoryId": "Getallen",
+            "emoji": "7️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Zeven",
+            "macedonian": "Седум",
+            "macedonianLatin": "Sedum",
+            "pronunciation": "SEH-doom",
+            "audioPath": "sound/num_7.mp3"
+        },
+        {
+            "id": "num_8",
+            "categoryId": "Getallen",
+            "emoji": "8️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Acht",
+            "macedonian": "Осум",
+            "macedonianLatin": "Osum",
+            "pronunciation": "OH-soom",
+            "audioPath": "sound/num_8.mp3"
+        },
+        {
+            "id": "num_9",
+            "categoryId": "Getallen",
+            "emoji": "9️⃣",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Negen",
+            "macedonian": "Девет",
+            "macedonianLatin": "Devet",
+            "pronunciation": "DEH-vet",
+            "audioPath": "sound/num_9.mp3"
+        },
+        {
+            "id": "num_10",
+            "categoryId": "Getallen",
+            "emoji": "🔟",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Tien",
+            "macedonian": "Десет",
+            "macedonianLatin": "Deset",
+            "pronunciation": "DEH-set",
+            "audioPath": "sound/num_10.mp3"
+        },
+        {
+            "id": "num_11",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Elf",
+            "macedonian": "Единаесет",
+            "macedonianLatin": "Edinaeset",
+            "pronunciation": "eh-dee-NAY-set",
+            "audioPath": "sound/num_11.mp3"
+        },
+        {
+            "id": "num_12",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Twaalf",
+            "macedonian": "Дванаесет",
+            "macedonianLatin": "Dvanaeset",
+            "pronunciation": "dvah-NAY-set",
+            "audioPath": "sound/num_12.mp3"
+        },
+        {
+            "id": "num_13",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Dertien",
+            "macedonian": "Тринаесет",
+            "macedonianLatin": "Trinaeset",
+            "pronunciation": "tree-NAY-set",
+            "audioPath": "sound/num_13.mp3"
+        },
+        {
+            "id": "num_14",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Veertien",
+            "macedonian": "Четиринаесет",
+            "macedonianLatin": "Chetirinaeset",
+            "pronunciation": "cheh-tee-ree-NAY-set",
+            "audioPath": "sound/num_14.mp3"
+        },
+        {
+            "id": "num_15",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Vijftien",
+            "macedonian": "Петнаесет",
+            "macedonianLatin": "Petnaeset",
+            "pronunciation": "pet-NAY-set",
+            "audioPath": "sound/num_15.mp3"
+        },
+        {
+            "id": "num_16",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Zestien",
+            "macedonian": "Шеснаесет",
+            "macedonianLatin": "Shesnaeset",
+            "pronunciation": "shes-NAY-set",
+            "audioPath": "sound/num_16.mp3"
+        },
+        {
+            "id": "num_17",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Zeventien",
+            "macedonian": "Седумнаесет",
+            "macedonianLatin": "Sedumnaeset",
+            "pronunciation": "seh-doom-NAY-set",
+            "audioPath": "sound/num_17.mp3"
+        },
+        {
+            "id": "num_18",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Achttien",
+            "macedonian": "Осумнаесет",
+            "macedonianLatin": "Osumnaeset",
+            "pronunciation": "oh-soom-NAY-set",
+            "audioPath": "sound/num_18.mp3"
+        },
+        {
+            "id": "num_19",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Negentien",
+            "macedonian": "Деветнаесет",
+            "macedonianLatin": "Devetnaeset",
+            "pronunciation": "deh-vet-NAY-set",
+            "audioPath": "sound/num_19.mp3"
+        },
+        {
+            "id": "num_20",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Twintig",
+            "macedonian": "Дваесет",
+            "macedonianLatin": "Dvaeset",
+            "pronunciation": "DVAH-eset",
+            "audioPath": "sound/num_20.mp3"
+        },
+        {
+            "id": "num_30",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Dertig",
+            "macedonian": "Триесет",
+            "macedonianLatin": "Trieset",
+            "pronunciation": "TREE-eset",
+            "audioPath": "sound/num_30.mp3"
+        },
+        {
+            "id": "num_40",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Veertig",
+            "macedonian": "Четириесет",
+            "macedonianLatin": "Chetirieset",
+            "pronunciation": "cheh-TEE-ree-eset",
+            "audioPath": "sound/num_40.mp3"
+        },
+        {
+            "id": "num_50",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Vijftig",
+            "macedonian": "Педесет",
+            "macedonianLatin": "Pedeset",
+            "pronunciation": "PEH-deh-set",
+            "audioPath": "sound/num_50.mp3"
+        },
+        {
+            "id": "num_60",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Zestig",
+            "macedonian": "Шеесет",
+            "macedonianLatin": "Sheeset",
+            "pronunciation": "SHEH-eset",
+            "audioPath": "sound/num_60.mp3"
+        },
+        {
+            "id": "num_70",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Zeventig",
+            "macedonian": "Седумдесет",
+            "macedonianLatin": "Sedumdeset",
+            "pronunciation": "seh-DOOM-deh-set",
+            "audioPath": "sound/num_70.mp3"
+        },
+        {
+            "id": "num_80",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Achttig",
+            "macedonian": "Осумдесет",
+            "macedonianLatin": "Osumdeset",
+            "pronunciation": "oh-SOOM-deh-set",
+            "audioPath": "sound/num_80.mp3"
+        },
+        {
+            "id": "num_90",
+            "categoryId": "Getallen",
+            "emoji": "🔢",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Negentig",
+            "macedonian": "Деведесет",
+            "macedonianLatin": "Devedeset",
+            "pronunciation": "deh-VEH-deh-set",
+            "audioPath": "sound/num_90.mp3"
+        },
+        {
+            "id": "num_100",
+            "categoryId": "Getallen",
+            "emoji": "💯",
+            "themeColorHex": "0xFFE1BEE7",
+            "dutch": "Honderd",
+            "macedonian": "Сто",
+            "macedonianLatin": "Sto",
+            "pronunciation": "STOH",
+            "audioPath": "sound/num_100.mp3"
         }
     ]
 }

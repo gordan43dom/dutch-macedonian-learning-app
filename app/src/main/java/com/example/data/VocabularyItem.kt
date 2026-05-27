@@ -139,6 +139,287 @@ object Vocabulary {
             category = "Vakantie",
             emoji = "⚽",
             themeColorHex = 0xFFE8EAF6
+        ),
+        // NUMBERS CATEGORY (Getallen)
+        VocabularyItem(
+            id = "num_1",
+            dutch = "Een",
+            macedonian = "Eden",
+            macedonianCyrillic = "Еден",
+            pronunciation = "EY-den",
+            category = "Getallen",
+            emoji = "1️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_2",
+            dutch = "Twee",
+            macedonian = "Dva",
+            macedonianCyrillic = "Два",
+            pronunciation = "DVAH",
+            category = "Getallen",
+            emoji = "2️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_3",
+            dutch = "Drie",
+            macedonian = "Tri",
+            macedonianCyrillic = "Три",
+            pronunciation = "TREE",
+            category = "Getallen",
+            emoji = "3️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_4",
+            dutch = "Vier",
+            macedonian = "Chetiri",
+            macedonianCyrillic = "Четири",
+            pronunciation = "CHEH-tee-ree",
+            category = "Getallen",
+            emoji = "4️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_5",
+            dutch = "Vijf",
+            macedonian = "Pet",
+            macedonianCyrillic = "Пет",
+            pronunciation = "PET",
+            category = "Getallen",
+            emoji = "5️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_6",
+            dutch = "Zes",
+            macedonian = "Shest",
+            macedonianCyrillic = "Шест",
+            pronunciation = "SHEST",
+            category = "Getallen",
+            emoji = "6️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_7",
+            dutch = "Zeven",
+            macedonian = "Sedum",
+            macedonianCyrillic = "Седум",
+            pronunciation = "SEH-doom",
+            category = "Getallen",
+            emoji = "7️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_8",
+            dutch = "Acht",
+            macedonian = "Osum",
+            macedonianCyrillic = "Осум",
+            pronunciation = "OH-soom",
+            category = "Getallen",
+            emoji = "8️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_9",
+            dutch = "Negen",
+            macedonian = "Devet",
+            macedonianCyrillic = "Девет",
+            pronunciation = "DEH-vet",
+            category = "Getallen",
+            emoji = "9️⃣",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_10",
+            dutch = "Tien",
+            macedonian = "Deset",
+            macedonianCyrillic = "Десет",
+            pronunciation = "DEH-set",
+            category = "Getallen",
+            emoji = "🔟",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_11",
+            dutch = "Elf",
+            macedonian = "Edinaeset",
+            macedonianCyrillic = "Единаесет",
+            pronunciation = "eh-dee-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_12",
+            dutch = "Twaalf",
+            macedonian = "Dvanaeset",
+            macedonianCyrillic = "Дванаесет",
+            pronunciation = "dvah-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_13",
+            dutch = "Dertien",
+            macedonian = "Trinaeset",
+            macedonianCyrillic = "Тринаесет",
+            pronunciation = "tree-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_14",
+            dutch = "Veertien",
+            macedonian = "Chetirinaeset",
+            macedonianCyrillic = "Четиринаесет",
+            pronunciation = "cheh-tee-ree-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_15",
+            dutch = "Vijftien",
+            macedonian = "Petnaeset",
+            macedonianCyrillic = "Петнаесет",
+            pronunciation = "pet-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_16",
+            dutch = "Zestien",
+            macedonian = "Shesnaeset",
+            macedonianCyrillic = "Шеснаесет",
+            pronunciation = "shes-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_17",
+            dutch = "Zeventien",
+            macedonian = "Sedumnaeset",
+            macedonianCyrillic = "Седумнаесет",
+            pronunciation = "seh-doom-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_18",
+            dutch = "Achttien",
+            macedonian = "Osumnaeset",
+            macedonianCyrillic = "Осумнаесет",
+            pronunciation = "oh-soom-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_19",
+            dutch = "Negentien",
+            macedonian = "Devetnaeset",
+            macedonianCyrillic = "Деветнаесет",
+            pronunciation = "deh-vet-NAY-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_20",
+            dutch = "Twintig",
+            macedonian = "Dvaeset",
+            macedonianCyrillic = "Дваесет",
+            pronunciation = "DVAH-eset",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_30",
+            dutch = "Dertig",
+            macedonian = "Trieset",
+            macedonianCyrillic = "Триесет",
+            pronunciation = "TREE-eset",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_40",
+            dutch = "Veertig",
+            macedonian = "Chetirieset",
+            macedonianCyrillic = "Четириесет",
+            pronunciation = "cheh-TEE-ree-eset",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_50",
+            dutch = "Vijftig",
+            macedonian = "Pedeset",
+            macedonianCyrillic = "Педесет",
+            pronunciation = "PEH-deh-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_60",
+            dutch = "Zestig",
+            macedonian = "Sheeset",
+            macedonianCyrillic = "Шеесет",
+            pronunciation = "SHEH-eset",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_70",
+            dutch = "Zeventig",
+            macedonian = "Sedumdeset",
+            macedonianCyrillic = "Седумдесет",
+            pronunciation = "seh-DOOM-deh-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_80",
+            dutch = "Achttig",
+            macedonian = "Osumdeset",
+            macedonianCyrillic = "Осумдесет",
+            pronunciation = "oh-SOOM-deh-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_90",
+            dutch = "Negentig",
+            macedonian = "Devedeset",
+            macedonianCyrillic = "Деведесет",
+            pronunciation = "deh-VEH-deh-set",
+            category = "Getallen",
+            emoji = "🔢",
+            themeColorHex = 0xFFE1BEE7
+        ),
+        VocabularyItem(
+            id = "num_100",
+            dutch = "Honderd",
+            macedonian = "Sto",
+            macedonianCyrillic = "Сто",
+            pronunciation = "STOH",
+            category = "Getallen",
+            emoji = "💯",
+            themeColorHex = 0xFFE1BEE7
         )
     )
 }
