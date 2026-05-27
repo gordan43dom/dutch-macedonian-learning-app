@@ -26,6 +26,8 @@ class VocabularyRepository(private val vocabularyDao: VocabularyDao) {
             val macedonianCyrillicTrans = transList.firstOrNull { it.languageCode == "MK_CYR" }?.translationValue ?: ""
             val pronunciation = transList.firstOrNull { it.languageCode == "MK_CYR" }?.pronunciationText 
                 ?: transList.firstOrNull { it.languageCode == "MK" }?.pronunciationText ?: ""
+            val audioPath = transList.firstOrNull { it.languageCode == "MK_CYR" }?.audioPath 
+                ?: transList.firstOrNull { it.audioPath.isNotBlank() }?.audioPath ?: ""
             
             val categoryName = categoriesMap[word.categoryId]?.category?.defaultName ?: word.categoryId
             
@@ -37,7 +39,9 @@ class VocabularyRepository(private val vocabularyDao: VocabularyDao) {
                 pronunciation = pronunciation,
                 category = categoryName,
                 emoji = word.emoji,
-                themeColorHex = word.themeColorHex
+                themeColorHex = word.themeColorHex,
+                imagePath = word.imagePath,
+                audioPath = audioPath
             )
         }
     }

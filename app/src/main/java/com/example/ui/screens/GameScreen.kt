@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -66,6 +68,7 @@ fun GameScreen(
     val selectedMacedonianId by viewModel.selectedMacedonianId.collectAsState()
     val totalStars by viewModel.totalStars.collectAsState()
     val allProgressLogs by viewModel.allProgress.collectAsState()
+    val allVocabList by viewModel.allVocabularyItemsFromDb.collectAsState()
     val selectedCategory by viewModel.selectedCategory.collectAsState()
     val currentScreen by viewModel.currentScreen.collectAsState()
     val categories by viewModel.categories.collectAsState()
@@ -235,8 +238,12 @@ fun GameScreen(
                         CategorySelectionView(
                             categories = categories,
                             progressLogs = allProgressLogs,
+                            vocabList = allVocabList,
                             onCategoryClick = { category ->
                                 viewModel.navigateToCategory(category)
+                            },
+                            onStartQuiz = { count, category ->
+                                viewModel.startCustomQuiz(count, category)
                             }
                         )
                     }
@@ -477,7 +484,7 @@ fun DutchItemCard(
                     .border(2.dp, Color(0xFFF5F5F5), RoundedCornerShape(16.dp))
                     .padding(4.dp)
             ) {
-                VocabularyIllustration(itemId = item.id, fallbackEmoji = item.emoji)
+                VocabularyIllustration(itemId = item.id, fallbackEmoji = item.emoji, imagePath = item.imagePath)
             }
 
             // Word labels & category stamp
@@ -1209,33 +1216,112 @@ fun ParentProgressStatsView(
 fun CategorySelectionView(
     categories: List<String>,
     progressLogs: List<com.example.data.ProgressEntity>,
-    onCategoryClick: (String) -> Unit
+    vocabList: List<com.example.data.VocabularyItem>,
+    onCategoryClick: (String) -> Unit,
+    onStartQuiz: (Int, String) -> Unit
 ) {
     val learnedWords = remember(progressLogs) {
         progressLogs.filter { it.isCorrect }.map { it.dutchWord }.toSet()
     }
 
+    var quizSize by remember { mutableStateOf(5) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 12.dp),
+            .padding(horizontal = 12.dp)
+            .padding(top = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, RoundedCornerShape(24.dp)),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFE8EAF6))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(14.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "🏆 Super Slimme Quiz 🎯",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    color = Color(0xFF1A237E)
+                )
+                Text(
+                    text = "Kies hoeveel woorden je wilt matchen uit alle categorieën:",
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF3F51B5),
+                    textAlign = TextAlign.Center
+                )
+
+                // Row of Pill Buttons
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val countPills = listOf(3, 5, 8, 10, 12, 15)
+                    countPills.forEach { count ->
+                        val isSelected = quizSize == count
+                        Box(
+                            modifier = Modifier
+                                .size(38.dp)
+                                .clip(CircleShape)
+                                .background(if (isSelected) Color(0xFF3F51B5) else Color.White)
+                                .border(2.dp, Color(0xFF3F51B5).copy(alpha = 0.3f), CircleShape)
+                                .clickable { quizSize = count },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = count.toString(),
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Black,
+                                color = if (isSelected) Color.White else Color(0xFF3F51B5)
+                            )
+                        }
+                    }
+                }
+
+                Button(
+                    onClick = { onStartQuiz(quizSize, "Alle") },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier.fillMaxWidth().shadow(2.dp, RoundedCornerShape(16.dp)),
+                    contentPadding = PaddingValues(vertical = 8.dp)
+                ) {
+                    Text(
+                        text = "Start Quiz! 🚀 ($quizSize woorden)",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Black,
+                        color = Color.White
+                    )
+                }
+            }
+        }
+
         Text(
-            text = "Kies een categorie om te beginnen! 🚀",
-            fontSize = 18.sp,
+            text = "Of kies een losse categorie: 👇",
+            fontSize = 13.sp,
             fontWeight = FontWeight.Black,
             color = Color(0xFF4E342E),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 4.dp)
         )
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 24.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.weight(1f).fillMaxWidth(),
+            contentPadding = PaddingValues(bottom = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(categories) { category ->
                 val emoji = when (category) {
@@ -1260,30 +1346,15 @@ fun CategorySelectionView(
                 }
 
                 val description = when (category) {
-                    "Gezin" -> "Mama, Papa, Oma, Baby..."
-                    "Keuken" -> "Vork, Lepel, Glas, Mes..."
-                    "Vakantie" -> "Strand, Zee, IJsje, Bal..."
-                    else -> "Alle 12 woorden samen!"
+                    "Gezin" -> "Mama, Papa, Oma..."
+                    "Keuken" -> "Vork, Lepel, Mes..."
+                    "Vakantie" -> "Strand, Zee, Bal..."
+                    else -> "Alle woorden!"
                 }
 
                 // Compute progress count
-                val (correctCount, totalCount) = when (category) {
-                    "Gezin" -> {
-                        val words = listOf("Mama", "Papa", "Baby", "Oma")
-                        Pair(words.count { it in learnedWords }, 4)
-                    }
-                    "Keuken" -> {
-                        val words = listOf("Vork", "Lepel", "Glas", "Mes")
-                        Pair(words.count { it in learnedWords }, 4)
-                    }
-                    "Vakantie" -> {
-                        val words = listOf("Strand", "Zee", "IJsje", "Bal")
-                        Pair(words.count { it in learnedWords }, 4)
-                    }
-                    else -> {
-                        Pair(com.example.data.Vocabulary.items.count { it.dutch in learnedWords }, 12)
-                    }
-                }
+                val categoryWords = if (category == "Alle") vocabList else vocabList.filter { it.category.equals(category, ignoreCase = true) }
+                val (correctCount, totalCount) = Pair(categoryWords.count { it.dutch in learnedWords }, categoryWords.size)
 
                 Card(
                     modifier = Modifier
@@ -1378,11 +1449,12 @@ fun TopicDetailView(
         else -> Color(0xFFE1BEE7)
     }
 
-    val wordsOfCategory = remember(category) {
+    val allVocabList by viewModel.allVocabularyItemsFromDb.collectAsState()
+    val wordsOfCategory = remember(category, allVocabList) {
         if (category == "Alle") {
-            com.example.data.Vocabulary.items
+            allVocabList
         } else {
-            com.example.data.Vocabulary.items.filter { it.category.equals(category, ignoreCase = true) }
+            allVocabList.filter { it.category.equals(category, ignoreCase = true) }
         }
     }
 
@@ -1531,7 +1603,7 @@ fun WordDictionaryCard(word: com.example.data.VocabularyItem, categoryColor: Col
             .clickable {
                 isClicked = true
                 scope.launch {
-                    com.example.sound.TtsManager.speak(word.dutch, "NL")
+                    com.example.sound.TtsManager.playAudio("", word.dutch, "NL")
                 }
             },
         shape = RoundedCornerShape(20.dp),
@@ -1551,7 +1623,7 @@ fun WordDictionaryCard(word: com.example.data.VocabularyItem, categoryColor: Col
                     .padding(4.dp),
                 contentAlignment = Alignment.Center
             ) {
-                VocabularyIllustration(itemId = word.id, modifier = Modifier.fillMaxSize(), fallbackEmoji = word.emoji)
+                VocabularyIllustration(itemId = word.id, modifier = Modifier.fillMaxSize(), fallbackEmoji = word.emoji, imagePath = word.imagePath)
             }
 
             Column(
@@ -1603,7 +1675,7 @@ fun WordDictionaryCard(word: com.example.data.VocabularyItem, categoryColor: Col
                     .background(categoryColor.copy(alpha = 0.1f), CircleShape)
                     .clickable {
                         scope.launch {
-                            com.example.sound.TtsManager.speak(word.macedonianCyrillic, "MK_CYR")
+                            com.example.sound.TtsManager.playAudio(word.audioPath, word.macedonianCyrillic, "MK_CYR")
                         }
                     },
                 contentAlignment = Alignment.Center
@@ -1650,17 +1722,19 @@ fun MatchGamePanel(
             ) {
                 if (isTablet) {
                     // Side-by-side tablet
+                    val tableScrollState = rememberScrollState()
                     Row(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(tableScrollState),
                         horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.Top
                     ) {
                         Column(
                             modifier = Modifier
                                 .weight(1f)
-                                .fillMaxHeight()
                                 .padding(8.dp),
-                            verticalArrangement = Arrangement.SpaceEvenly,
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             shuffledDutch.forEach { item ->
@@ -1678,15 +1752,13 @@ fun MatchGamePanel(
                         Box(
                             modifier = Modifier
                                 .width(40.dp)
-                                .fillMaxHeight()
                         )
 
                         Column(
                             modifier = Modifier
                                 .weight(1f)
-                                .fillMaxHeight()
                                 .padding(8.dp),
-                            verticalArrangement = Arrangement.SpaceEvenly,
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             shuffledMacedonian.forEach { item ->
@@ -1704,15 +1776,17 @@ fun MatchGamePanel(
                     }
                 } else {
                     // Stacked columns on mobile
+                    val mobScrollState = rememberScrollState()
                     Row(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(mobScrollState),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Column(
                             modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight(),
-                            verticalArrangement = Arrangement.SpaceEvenly
+                                .weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             shuffledDutch.forEach { item ->
                                 DutchItemCard(
@@ -1728,9 +1802,8 @@ fun MatchGamePanel(
 
                         Column(
                             modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight(),
-                            verticalArrangement = Arrangement.SpaceEvenly
+                                .weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             shuffledMacedonian.forEach { item ->
                                 MacedonianTargetCard(
@@ -1836,8 +1909,9 @@ fun MatchGamePanel(
                             Text("😊", fontSize = 34.sp)
                         }
 
+                        val roundSize = shuffledDutch.size
                         Text(
-                            text = "+3 Sterren verdiend! 🌟🌟🌟",
+                            text = "+$roundSize Sterren verdiend! " + "🌟".repeat(minOf(5, roundSize)),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Black,
                             color = Color(0xFFF57C00)

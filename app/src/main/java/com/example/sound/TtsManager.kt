@@ -47,6 +47,35 @@ object TtsManager {
         }
     }
 
+    fun playAudio(audioPath: String, textFallback: String, languageCode: String) {
+        val path = audioPath.trim()
+        if (path.isEmpty() || (!path.startsWith("http") && !path.startsWith("file://") && !path.startsWith("content://"))) {
+            // No custom web path or local media URI - fall back to Text to Speech speaking
+            speak(textFallback, languageCode)
+            return
+        }
+
+        try {
+            val mediaPlayer = android.media.MediaPlayer()
+            mediaPlayer.setDataSource(path)
+            mediaPlayer.setOnPreparedListener { mp ->
+                mp.start()
+            }
+            mediaPlayer.setOnCompletionListener { mp ->
+                mp.release()
+            }
+            mediaPlayer.setOnErrorListener { mp, _, _ ->
+                mp.release()
+                speak(textFallback, languageCode)
+                true
+            }
+            mediaPlayer.prepareAsync()
+        } catch (e: Exception) {
+            Log.e("TtsManager", "Failed to play custom source: $path. Fallback to TTS.", e)
+            speak(textFallback, languageCode)
+        }
+    }
+
     fun shutdown() {
         try {
             tts?.stop()

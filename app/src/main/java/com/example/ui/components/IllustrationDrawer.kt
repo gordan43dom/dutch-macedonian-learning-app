@@ -14,17 +14,34 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.unit.dp
 import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun VocabularyIllustration(itemId: String, modifier: Modifier = Modifier, fallbackEmoji: String = "✨") {
+fun VocabularyIllustration(itemId: String, modifier: Modifier = Modifier, fallbackEmoji: String = "✨", imagePath: String? = null) {
     val defaultIds = remember {
         setOf("mama", "papa", "baby", "oma", "fork", "spoon", "glass", "knife", "beach", "sea", "icecream", "ball")
     }
 
     Box(modifier = modifier, contentAlignment = androidx.compose.ui.Alignment.Center) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
+        val isCustomImage = remember(imagePath) {
+            imagePath != null && (imagePath.startsWith("http") || imagePath.startsWith("file://") || imagePath.startsWith("content://"))
+        }
+
+        if (isCustomImage) {
+            coil.compose.AsyncImage(
+                model = imagePath,
+                contentDescription = itemId,
+                contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(16.dp))
+            )
+        } else {
+            Canvas(modifier = Modifier.fillMaxSize()) {
             val w = size.width
             val h = size.height
             val cx = w / 2
@@ -676,6 +693,7 @@ fun VocabularyIllustration(itemId: String, modifier: Modifier = Modifier, fallba
             }
         }
     }
+}
 
     if (!defaultIds.contains(itemId)) {
         Box(

@@ -8,7 +8,9 @@ data class VocabularyItem(
     val pronunciation: String,
     val category: String,
     val emoji: String,
-    val themeColorHex: Long
+    val themeColorHex: Long,
+    val imagePath: String = "",
+    val audioPath: String = ""
 )
 
 object Vocabulary {

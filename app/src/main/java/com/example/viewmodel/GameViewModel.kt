@@ -86,6 +86,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val _selectedCategory = MutableStateFlow<String>("Alle")
     val selectedCategory = _selectedCategory.asStateFlow()
 
+    private val _quizWordCount = MutableStateFlow(3)
+    val quizWordCount = _quizWordCount.asStateFlow()
+
     private val _currentScreen = MutableStateFlow<Screen>(Screen.CategorySelection)
     val currentScreen = _currentScreen.asStateFlow()
 
@@ -127,6 +130,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun navigateToCategory(category: String) {
+        _quizWordCount.value = 3 // Reset to default toddlers round scale
         _selectedCategory.value = category
         generateNewRound()
         _currentScreen.value = Screen.TopicDetail(category)
@@ -143,8 +147,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             allVocabularyItemsFromDb.value.filter { it.category.equals(cat, ignoreCase = true) }
         }
-        val count = minOf(3, totalList.size)
-        // Draw 3 unique vocabulary pairs randomly
+        val count = minOf(_quizWordCount.value, totalList.size)
+        // Draw dynamically-sized unique vocabulary pairs randomly
         val selected = totalList.shuffled().take(count)
         _currentRoundItems.value = selected
         _shuffledDutch.value = selected.shuffled()
@@ -154,6 +158,13 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _selectedMacedonianId.value = null
     }
 
+    fun startCustomQuiz(wordCount: Int, category: String) {
+        _quizWordCount.value = wordCount
+        _selectedCategory.value = category
+        generateNewRound()
+        _currentScreen.value = Screen.TopicDetail(category)
+    }
+
     fun addNewWord(
         id: String,
         categoryId: String,
@@ -161,13 +172,15 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         macedonianLatin: String,
         macedonianCyrillic: String,
         pronunciation: String,
-        emoji: String
+        emoji: String,
+        imagePath: String = "",
+        audioPath: String = ""
     ) {
         viewModelScope.launch {
             val word = WordEntity(
                 id = id.lowercase().trim(),
                 categoryId = categoryId,
-                imagePath = id.lowercase().trim(),
+                imagePath = imagePath.ifBlank { id.lowercase().trim() },
                 emoji = emoji.ifEmpty { "✨" },
                 themeColorHex = 0xFFECEFF1
             )
@@ -179,7 +192,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                     languageCode = "MK_CYR",
                     translationValue = macedonianCyrillic,
                     pronunciationText = pronunciation,
-                    audioPath = "sound/${word.id}.mp3"
+                    audioPath = audioPath.ifBlank { "sound/${word.id}.mp3" }
                 )
             )
             vocabularyRepository.insertWord(word, translations)
@@ -234,7 +247,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                 // Correct match!
                 viewModelScope.launch {
                     SoundPlayer.playSuccessChime()
-                    com.example.sound.TtsManager.speak(dItem.macedonianCyrillic, "MK_CYR")
+                    com.example.sound.TtsManager.playAudio(dItem.audioPath, dItem.macedonianCyrillic, "MK_CYR")
                 }
                 
                 // Add to matched set
