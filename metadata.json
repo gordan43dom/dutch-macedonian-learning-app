@@ -1,0 +1,6 @@
+{
+  "name": "Dutch-Macedonian Matching Game",
+  "description": "An offline, ad-free educational drag-and-drop matching game from Dutch to Macedonian for toddlers, with reward stars, visual/audio feedback, and parent progress tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

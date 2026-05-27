@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Bold golden reward star centered in 108x108 viewport -->
+    <path
+        android:fillColor="#FFD54F"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M 54,20 L 64.5,41.5 L 88,41.5 L 69,55.5 L 76.5,77 L 54,63.5 L 31.5,77 L 39,55.5 L 20,41.5 L 43.5,41.5 Z" />
+
+    <!-- Cute eyes inside the star for kid-friendly playful style -->
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M 44,48 A 3,3 0 1,1 44,47.9 Z M 64,48 A 3,3 0 1,1 64,47.9 Z" />
+
+    <!-- Cute smiling curve -->
+    <path
+        android:strokeColor="#E65100"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M 48,55 Q 54,59 60,55" />
+</vector>
